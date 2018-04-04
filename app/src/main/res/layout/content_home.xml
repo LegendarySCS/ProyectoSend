@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.scs.send.Home"
+    tools:showIn="@layout/app_bar_home">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+
+                <RelativeLayout
+                    android:id="@+id/content_main12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    tools:context="sendq.scs.com.send.Home"
+                    tools:showIn="@layout/app_bar_home">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:background="@color/primary_dark">
+
+                            <TextView
+                                android:text="¡Hola!"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/mensaje"
+                                android:typeface="normal"
+                                android:fontFamily="sans-serif"
+                                android:textSize="22sp"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="normal|bold"
+                                android:textAllCaps="true"
+                                android:textAlignment="center"
+                                android:layout_alignTop="@+id/imageView5"
+                                android:layout_centerHorizontal="true" />
+
+                            <TextView
+                                android:text="Sin datos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/nombre"
+                                android:typeface="normal"
+                                android:fontFamily="sans-serif"
+                                android:textSize="24sp"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="normal|bold"
+                                android:textAllCaps="true"
+                                android:textAlignment="center"
+                                android:layout_centerVertical="true"
+                                android:layout_centerHorizontal="true" />
+
+                            <TextView
+                                android:text="Manta - Manabí"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/lugar"
+                                android:typeface="normal"
+                                android:fontFamily="sans-serif"
+                                android:textSize="16sp"
+                                android:textColor="@color/colorPrimary"
+                                android:textAllCaps="true"
+                                android:textAlignment="center"
+                                android:layout_alignBottom="@+id/Userprincipal"
+                                android:layout_centerHorizontal="true" />
+
+
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="100dp"
+                                android:layout_height="80dp"
+                                android:layout_marginLeft="44dp"
+                                android:layout_marginStart="44dp"
+                                android:id="@+id/LogoApp"
+                                android:scaleType="centerCrop"
+                                android:layout_alignBottom="@+id/lugar"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:src="@drawable/user"
+                                app:border_color="@android:color/white"
+                                app:border_width="1dp"/>
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="100dp"
+                                android:layout_height="80dp"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginEnd="19dp"
+                                android:id="@+id/Userprincipal"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/user"
+                                app:border_color="@android:color/white"
+                                app:border_width="1dp"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true" />
+
+
+                        </RelativeLayout>
+
+                        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/scroll"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <android.support.design.widget.TabLayout
+                                        android:id="@+id/tabs"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="90dp"
+                                        android:background="@color/primary"
+                                        app:tabTextColor="@color/cardview_light_background"
+                                        app:tabMode="scrollable"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_alignParentStart="true"
+                                        app:tabIndicatorColor="@color/divider"
+                                        app:tabIndicatorHeight="4dp">
+
+                                    </android.support.design.widget.TabLayout>
+
+                                </android.support.design.widget.CoordinatorLayout>
+
+
+
+                            </LinearLayout>
+
+                        </ScrollView>
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"                >
+
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pagermain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:tabMode="fixed"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:visibility="visible"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+
+                </android.support.v4.view.ViewPager>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+
+
+    </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

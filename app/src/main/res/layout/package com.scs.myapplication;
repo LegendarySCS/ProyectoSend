@@ -1,0 +1,166 @@
+package com.scs.myapplication;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+class CustomAdapter extends BaseAdapter {
+
+    private static final int TYPE_ITEM = 0;
+    private static final int TYPE_SEPARATOR = 1;
+
+    private ArrayList<String> mData = new ArrayList<String>();
+    private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
+
+    private LayoutInflater mInflater;
+
+    private static final String URL_BASE = "http://192.168.43.182/ServerSend/Welcome/Productos/";
+    private static final String URL_IMG = "http://192.168.43.182/ServerSend/assets/Productos/";
+    private static final String TAG = "PostRestaAdapter";
+    JsonObjectRequest jsArrayRequest;
+    private RequestQueue requestQueue;
+    List<PostI> items;
+
+
+    public CustomAdapter(Context context) {
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        requestQueue = Volley.newRequestQueue(context);
+        jsArrayRequest = new JsonObjectRequest(Request.Method.GET,URL_BASE+"96749",(String) null,new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                items = parseJson(response);
+                notifyDataSetChanged();
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
+                    }
+                }
+        );
+        requestQueue.add(jsArrayRequest);
+    }
+    private List<PostI> parseJson(JSONObject response) {
+        List<PostI> posts = new ArrayList<>();
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = response.getJSONArray("items");
+            String a="";
+            for (int i = 0; i < jsonArray.length(); i++) {
+                try {
+                    JSONObject objeto = jsonArray.getJSONObject(i);
+                    PostI post = new PostI(
+                            objeto.getString("node_title"),
+                            objeto.getString("Descripcion"),
+                            objeto.getString("Foto"),
+                            objeto.getString("Categoria"),
+                            objeto.getInt("nid"));
+                    posts.add(post);
+
+                    if(!a.equals(objeto.getString("Categoria"))) {
+                        a=objeto.getString("Categoria");
+                        addSectionHeaderItem(objeto.optString("Categoria"));
+                    }
+                    addItem(objeto.getString("node_title"));
+
+
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error de parsing: " + e.getMessage());
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
+    public void addItem(final String item) {
+        mData.add(item);
+        notifyDataSetChanged();
+    }
+
+    public void addSectionHeaderItem(final String item) {
+        mData.add(item);
+        sectionHeader.add(mData.size() - 1);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return sectionHeader.contains(position) ? TYPE_SEPARATOR : TYPE_ITEM;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getCount() {
+        return mData.size();
+    }
+
+    @Override
+    public String getItem(int position) {
+        return mData.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder = null;
+        int rowType = getItemViewType(position);
+
+        if (convertView == null) {
+            holder = new ViewHolder();
+            switch (rowType) {
+                case TYPE_ITEM:
+                    convertView = mInflater.inflate(R.layout.snippet_item1, null);
+                    holder.textView = (TextView) convertView.findViewById(R.id.text);
+                    holder.textView2 = (TextView) convertView.findViewById(R.id.text2);
+
+
+                    break;
+                case TYPE_SEPARATOR:
+                    convertView = mInflater.inflate(R.layout.snippet_item2, null);
+                    holder.textView = (TextView) convertView.findViewById(R.id.textSeparator);
+                    break;
+            }
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+        
+ holder.textView.setText(mData.get(position));
+        Log.e(TAG,mData.get(position));
+
+        return convertView;
+    }
+
+    public static class ViewHolder {
+        public TextView textView;
+        public TextView textView2;
+    }
+
+}
